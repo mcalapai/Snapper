@@ -110,7 +110,7 @@ class ShortcutListener:
 
         self.console.print("[bold magenta]Response:[/bold magenta]")
         self.console.print(response["choices"][0]["message"]["content"])
-        self.console.print("[bold magenta]Done![/bold magenta] Press ctrl+alt+s to make another request.")
+        self.console.print("[bold magenta]Done![/bold magenta] Press [bold green]ctrl+alt+s[/bold green] to make another request or [bold green]ctrl+c[/bold green] to stop.")
         #print(image_stream)
 
     def for_canonical(self, f):
@@ -132,6 +132,6 @@ if __name__ == "__main__":
     console = Console()
     console.print("[bold magenta]Hello! Press ctrl+alt+s to start...[/bold magenta]")
     hotkey = {keyboard.Key.ctrl, keyboard.Key.alt, keyboard.KeyCode.from_char('s')}
-    sl = ShortcutListener(hotkey)
+    sl = ShortcutListener(hotkey, console)
 
     #print(response["choices"][0]["message"]["content"])
