@@ -1,0 +1,7 @@
+pandas
+pyautogui
+requests
+tk-tools
+Pillow
+pynput
+pyautogui
