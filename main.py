@@ -15,6 +15,8 @@ from rich.status import Status
 load_dotenv()
 
 api_key = os.getenv("OPENAI_API_KEY")
+with open("prompt.txt", "r") as f:
+    prompt = f.read()
 
 def take_screenshot():
     # Create a temporary file
@@ -86,7 +88,7 @@ def query_openai(payload, console):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
     }
-    with console.status("[bold green]Making API request...", spinner="dots"):
+    with console.status("[bold green]Thinking...", spinner="dots"):
         response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
         return response.json()
 
@@ -102,10 +104,8 @@ class ShortcutListener:
     def on_activate(self):
         print("Keyboard shortcut activated!")
         image_stream = take_screenshot()
-        payload = create_payload(image_stream, prompt="Solve the question in this image and output the answer with a short explanation.")
+        payload = create_payload(image_stream, prompt=prompt)
         
-        
-
         response = query_openai(payload, self.console)
 
         self.console.print("[bold magenta]Response:[/bold magenta]")
